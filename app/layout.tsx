@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import DotGrid from "@/components/DotGrid"; // <-- IMPORTED
 
 const inter = Inter({ subsets: ["latin"] });
 
 // --- IMPORTANT DATA FOR SEO ---
-// This should be the same as in HeroCountdown.tsx
 const EVENT_START_ISO = "2025-11-20T09:00:00";
 const EVENT_START_DATE = new Date(EVENT_START_ISO);
 const EVENT_END_DATE = new Date("2025-11-25T17:00:00"); // Assuming a 5-day event
@@ -30,10 +30,6 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Generates the JSON-LD Schema for Event SEO.
- * This helps Google understand your event details.
- */
 function EventSchema() {
   const schema = {
     "@context": "https://schema.org",
@@ -68,7 +64,7 @@ function EventSchema() {
     "organizer": {
       "@type": "Organization",
       "name": "BMSCE IEEE Computer Society",
-      "url": "https://bmsce.ieee.org" // <-- REPLACE with actual club URL
+      "url": "httpsBMSCE.ieee.org" // <-- REPLACE with actual club URL
     },
     // Sub-event for the Hackathon
     "subEvent": {
@@ -110,16 +106,33 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ scrollBehavior: 'smooth' }}>
       <head>
-        {/* Add the Event Schema script to the head */}
         <EventSchema />
       </head>
-      <body className={`${inter.className} bg-black`}>
-        {/* Accessibility: Skip to Content link.
-          This must be the *first* focusable element.
-        */}
+      {/* Add 'relative' to the body tag */}
+      <body className={`${inter.className} relative`}>
+        
+        {/* --- THIS IS THE NEW BACKGROUND --- */}
+        <div className="fixed inset-0 -z-10 w-full h-screen">
+          <DotGrid
+            dotSize={2}
+            gap={20}
+            baseColor="#064e3b"     // Dark Green (Tailwind green-900)
+            activeColor="#34d399" // Neon Green (Tailwind green-400)
+            proximity={100}
+            shockRadius={200}
+            shockStrength={0.5}
+            resistance={250}
+            returnDuration={0.5}
+          />
+        </div>
+        {/* --- END OF NEW BACKGROUND --- */}
+
+
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        
+        {/* Your page content renders here, on top of the background */}
         {children}
       </body>
     </html>
