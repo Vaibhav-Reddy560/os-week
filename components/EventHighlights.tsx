@@ -13,7 +13,8 @@ const highlights = [
 
 export default function EventHighlights() {
   return (
-    <section id="highlights" className="py-16 bg-black">
+    // --- BACKGROUND CLASS REMOVED FROM THIS LINE ---
+    <section id="highlights" className="py-16">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl font-extrabold text-white mb-8 text-center md:text-left">
           Event Highlights
@@ -26,6 +27,7 @@ export default function EventHighlights() {
               whileInView={{ opacity: 1, y: 0 }} 
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: i * 0.06, ease: "easeOut" }} 
+              // --- This card's background is kept ---
               className="p-6 rounded-xl border border-green-900/30 bg-gradient-to-b from-neutral-900/40 to-black/20"
             >
               <h3 className="text-lg font-semibold text-green-300">{h.title}</h3>
