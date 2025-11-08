@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section id="about" className="py-16 bg-gradient-to-b from-black via-[#050505] to-black">
+    // --- BACKGROUND CLASS REMOVED FROM THIS LINE ---
+    <section id="about" className="py-16">
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
