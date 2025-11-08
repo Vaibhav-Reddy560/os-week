@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef, useEffect, useCallback, useMemo } from 'react';
 import { gsap } from 'gsap';
 // 'InertiaPlugin' import removed
@@ -225,7 +226,6 @@ const DotGrid: React.FC<DotGridProps> = ({
           const pushX = dot.cx - pr.x + vx * 0.005;
           const pushY = dot.cy - pr.y + vy * 0.005;
 
-          // --- THIS IS THE FIX ---
           // Replaced 'inertia' with a standard 'gsap.to'
           gsap.to(dot, {
             xOffset: pushX,
@@ -241,7 +241,6 @@ const DotGrid: React.FC<DotGridProps> = ({
               dot._inertiaApplied = false;
             }
           });
-          // --- END OF FIX ---
         }
       }
     };
@@ -259,7 +258,6 @@ const DotGrid: React.FC<DotGridProps> = ({
           const pushX = (dot.cx - cx) * shockStrength * falloff;
           const pushY = (dot.cy - cy) * shockStrength * falloff;
 
-          // --- THIS IS THE FIX ---
           // Replaced 'inertia' with a standard 'gsap.to'
           gsap.to(dot, {
             xOffset: pushX,
@@ -275,7 +273,6 @@ const DotGrid: React.FC<DotGridProps> = ({
               dot._inertiaApplied = false;
             }
           });
-          // --- END OF FIX ---
         }
       }
     };
