@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+// Import 'Variants' type from framer-motion
+import { motion, useReducedMotion, Variants } from "framer-motion";
 
 type Item = {
   id: string;
@@ -115,11 +116,13 @@ export default function Timeline() {
             {TIMELINE.map((item, idx) => {
               const side = item.side;
               
-              const itemVariants = {
+              {/* --- THIS IS THE FIX --- */}
+              {/* Explicitly type the animation variants with the 'Variants' type */}
+              const itemVariants: Variants = {
                 hidden: { opacity: 0, x: shouldReduceMotion ? 0 : (side === 'left' ? -30 : 30) },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
               };
-              const mobileItemVariants = {
+              const mobileItemVariants: Variants = {
                 hidden: { opacity: 0, x: shouldReduceMotion ? 0 : 20 },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
               };
@@ -127,8 +130,7 @@ export default function Timeline() {
               return (
                 <div 
                   key={item.id} 
-                  // This is the line that was fixed
-                  ref={(el) => { itemRefs.current[item.id] = el; }} 
+                  ref={(el) => { itemRefs.current[item.id] = el; }} // ref callback fix
                   data-id={item.id}
                   className="relative md:grid md:grid-cols-2 md:items-start md:gap-8"
                 >
