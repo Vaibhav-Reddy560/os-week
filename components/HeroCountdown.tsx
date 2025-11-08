@@ -26,7 +26,8 @@ export default function HeroCountdown() {
   const isStarted = diff <= 0;
 
   return (
-    <section id="home" className="min-h-[70vh] flex items-center justify-center bg-gradient-to-b from-black via-[#050505] to-black py-16">
+    // --- I REMOVED THE 'bg-gradient-...' CLASSES FROM THIS LINE ---
+    <section id="home" className="min-h-[70vh] flex items-center justify-center py-16">
       <div className="max-w-6xl w-full px-6 py-12 flex flex-col md:flex-row items-center gap-12">
         <div className="flex-1 text-center md:text-left">
           <div className="mx-auto md:mx-0 max-w-lg">
@@ -96,6 +97,7 @@ export default function HeroCountdown() {
         </div>
 
         <div className="flex-1 w-full">
+          {/* This card can keep its background, it will look good */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
