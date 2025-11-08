@@ -116,7 +116,7 @@ export default function RootLayout({
           <DotGrid
             dotSize={2}
             gap={20}
-            baseColor="#064e3b"     // Dark Green (Tailwind green-900)
+            baseColor="#064e3b"     // Dark Green (Tailwind green-800)
             activeColor="#34d399" // Neon Green (Tailwind green-400)
             proximity={100}
             shockRadius={200}
