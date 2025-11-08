@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-// Import 'Variants' type from framer-motion
 import { motion, useReducedMotion, Variants } from "framer-motion";
 
 type Item = {
@@ -87,7 +86,8 @@ export default function Timeline() {
   const sliderTop = activeIdx * (100 / Math.max(1, TIMELINE.length - 1));
 
   return (
-    <section id="schedule" ref={containerRef} className="py-16 bg-black overflow-x-hidden">
+    // --- BACKGROUND CLASS REMOVED FROM THIS LINE ---
+    <section id="schedule" ref={containerRef} className="py-16 overflow-x-hidden">
       <div className="max-w-4xl mx-auto px-6 relative">
         <h2 className="text-3xl font-extrabold text-white mb-12 text-center">
           Event Schedule
@@ -116,8 +116,6 @@ export default function Timeline() {
             {TIMELINE.map((item, idx) => {
               const side = item.side;
               
-              {/* --- THIS IS THE FIX --- */}
-              {/* Explicitly type the animation variants with the 'Variants' type */}
               const itemVariants: Variants = {
                 hidden: { opacity: 0, x: shouldReduceMotion ? 0 : (side === 'left' ? -30 : 30) },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
@@ -130,7 +128,7 @@ export default function Timeline() {
               return (
                 <div 
                   key={item.id} 
-                  ref={(el) => { itemRefs.current[item.id] = el; }} // ref callback fix
+                  ref={(el) => { itemRefs.current[item.id] = el; }} 
                   data-id={item.id}
                   className="relative md:grid md:grid-cols-2 md:items-start md:gap-8"
                 >
@@ -188,6 +186,7 @@ export default function Timeline() {
 
 // Helper component for the card content
 const TimelineCard = ({ item }: { item: Item }) => (
+  // --- This card's background is kept ---
   <div className="bg-neutral-900/40 border border-green-900/30 p-4 rounded-lg shadow-md">
     <div className="text-base font-semibold text-green-300">{item.title}</div>
     <div className="text-xs text-neutral-400 mt-1">{item.time}</div>
