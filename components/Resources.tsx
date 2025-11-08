@@ -1,7 +1,8 @@
 "use client";
+
 import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // <-- Import Variants
 
 // --- EDIT PEOPLE DATA HERE ---
 const people = [
@@ -14,13 +15,25 @@ const judges = [
   { name: "Mr. Arun P", role: "Hackathon Judge", img: "/placeholder-person-4.png", bio: "Senior Engineer, Mentor." },
 ];
 
+// Define card variants with the 'Variants' type
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay, ease: "easeOut" }
+  })
+};
+
 const ResourceCard = ({ person, delay }: { person: typeof people[0], delay: number }) => (
   <motion.div 
+    // --- This card's background is kept ---
     className="flex gap-4 items-start p-4 rounded-lg border border-green-900/30 bg-neutral-900/30"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
+    variants={cardVariants}
+    initial="hidden"
+    whileInView="visible"
+    custom={delay} // Pass delay to the 'visible' variant
     viewport={{ once: true, amount: 0.5 }}
-    transition={{ delay, ease: "easeOut" }}
   >
     <Image 
       src={person.img} 
@@ -39,7 +52,8 @@ const ResourceCard = ({ person, delay }: { person: typeof people[0], delay: numb
 
 export default function Resources() {
   return (
-    <section id="resources" className="py-16 bg-black">
+    // --- BACKGROUND CLASS REMOVED FROM THIS LINE ---
+    <section id="resources" className="py-16">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl font-extrabold text-white mb-8 text-center">
           Resource Persons & Judges
