@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -62,7 +63,6 @@ export default function Timeline() {
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const shouldReduceMotion = useReducedMotion();
 
-  // This effect tracks which item is in the center of the viewport
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => {
@@ -75,7 +75,6 @@ export default function Timeline() {
           }
         });
       },
-      // Triggers when item is in the vertical center 40% of the screen
       { root: null, rootMargin: "-40% 0px -40% 0px", threshold: 0.1 }
     );
 
@@ -84,7 +83,6 @@ export default function Timeline() {
     return () => refs.forEach(el => el && obs.disconnect());
   }, []);
 
-  // Calculate top position for the animated slider
   const sliderTop = activeIdx * (100 / Math.max(1, TIMELINE.length - 1));
 
   return (
@@ -117,7 +115,6 @@ export default function Timeline() {
             {TIMELINE.map((item, idx) => {
               const side = item.side;
               
-              // Animation variants
               const itemVariants = {
                 hidden: { opacity: 0, x: shouldReduceMotion ? 0 : (side === 'left' ? -30 : 30) },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
@@ -130,7 +127,8 @@ export default function Timeline() {
               return (
                 <div 
                   key={item.id} 
-                  ref={(el) => (itemRefs.current[item.id] = el)} 
+                  // This is the line that was fixed
+                  ref={(el) => { itemRefs.current[item.id] = el; }} 
                   data-id={item.id}
                   className="relative md:grid md:grid-cols-2 md:items-start md:gap-8"
                 >
